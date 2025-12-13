@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Earth",
+    "mass_kg": 5.972e24,
+    "distance_from_sun_km": 149600000,
+    "moons": ["Moon"]
+  },
+  {
+    "name": "Saturn",
+    "mass_kg": 5.683e26,
+    "distance_from_sun_km": 1433500000,
+    "moons": ["Titan", "Enceladus", "Rhea", "Iapetus"]
+  }
+]
