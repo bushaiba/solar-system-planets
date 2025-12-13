@@ -5,6 +5,7 @@ from src.services.formatter import (
     format_planet_mass,
     format_planet_moon_count,
 )
+from src.services.query_parser import QueryEngine
 from src.utils.errors import PlanetError, PlanetNotFoundError
 
 
@@ -39,7 +40,7 @@ def normalise_menu_choice(raw: str) -> str:
 
     Accepts:
     - digits (e.g., "1", "2") and returns them unchanged
-    - common keywords (e.g., "list", "exit") and maps them to menu numbers
+    - common keywords (e.g., "list", "exit", "ask") and maps them to menu numbers
     Returns:
     - "" if the input is empty
     - "invalid" if it does not match any supported option
@@ -73,6 +74,9 @@ def normalise_menu_choice(raw: str) -> str:
     if value in ["check", "exists", "is it a planet", "in the list"]:
         return "6"
 
+    if value in ["ask", "question", "query", "free text"]:
+        return "7"
+
     return "invalid"
 
 
@@ -87,8 +91,8 @@ def show_menu() -> None:
     print("4) Planet distance from Sun")
     print("5) Moon count")
     print("6) Check if a name is a planet in the list")
+    print("7) Ask a question")
     print("0) Exit")
-    print("")
 
 
 def main() -> None:
@@ -96,9 +100,9 @@ def main() -> None:
     Run the command-line menu program.
 
     Loads the planet data from JSON, then repeatedly:
-    - shows a menu
-    - reads a user choice
-    - performs the requested action (list/details/mass/distance/moons/membership)
+    - shows the menu
+    - reads and normalises a user choice
+    - performs the requested action (including free-text questions via QueryEngine)
     Handles common errors and keeps running until the user exits.
     """
     try:
@@ -107,10 +111,12 @@ def main() -> None:
         print(f"Error loading data: {exc}")
         return
 
+    engine = QueryEngine()
+
     while True:
         show_menu()
-        raw_choice = prompt("Choose an option: ")
         print()
+        raw_choice = prompt("Choose an option (number or words): ")
         choice = normalise_menu_choice(raw_choice)
 
         if choice == "":
@@ -118,6 +124,7 @@ def main() -> None:
 
         if choice == "0":
             print("Goodbye.")
+            print()
             break
 
         if choice == "invalid":
@@ -154,6 +161,11 @@ def main() -> None:
                     print(f"Yes, {name.strip()} is in the planet list.")
                 else:
                     print(f"No, {name.strip()} is not in the planet list.")
+
+            elif choice == "7":
+                question = prompt_non_empty("Ask your question: ")
+                answer = engine.answer(question, catalogue)
+                print(answer)
 
             else:
                 print("Invalid option. Choose a number from the menu, or type a keyword like 'list'.")
