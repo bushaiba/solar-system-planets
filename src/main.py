@@ -9,18 +9,41 @@ from src.utils.errors import PlanetError, PlanetNotFoundError
 
 
 def prompt(text: str) -> str:
-    return input(text).strip()
+    """
+    Prompt the user for input, strip leading/trailing whitespace, and return the result.
+
+    Also prints a blank line after input for nicer console spacing.
+    """
+    value = input(text).strip()
+    print()
+    return value
 
 
 def prompt_non_empty(text: str) -> str:
+    """
+    Prompt the user until they enter a non-empty value.
+
+    Returns the stripped input string once it is not empty.
+    """
     while True:
         value = input(text).strip()
         if value != "":
+            print()
             return value
         print("Please enter a value.")
 
 
 def normalise_menu_choice(raw: str) -> str:
+    """
+    Convert a raw menu input into a normalised menu code.
+
+    Accepts:
+    - digits (e.g., "1", "2") and returns them unchanged
+    - common keywords (e.g., "list", "exit") and maps them to menu numbers
+    Returns:
+    - "" if the input is empty
+    - "invalid" if it does not match any supported option
+    """
     value = raw.strip().lower()
 
     if value == "":
@@ -29,7 +52,7 @@ def normalise_menu_choice(raw: str) -> str:
     if value.isdigit():
         return value
 
-    if value in ["exit", "quit", "q"]:
+    if value in ["exit", "quit", "q", "x"]:
         return "0"
 
     if value in ["list", "list planets", "planets", "show planets"]:
@@ -54,6 +77,9 @@ def normalise_menu_choice(raw: str) -> str:
 
 
 def show_menu() -> None:
+    """
+    Print the main menu options to the console.
+    """
     print("\nSolar System Planets")
     print("1) List planets")
     print("2) Planet details")
@@ -62,10 +88,19 @@ def show_menu() -> None:
     print("5) Moon count")
     print("6) Check if a name is a planet in the list")
     print("0) Exit")
-    print("\n")
+    print("")
 
 
 def main() -> None:
+    """
+    Run the command-line menu program.
+
+    Loads the planet data from JSON, then repeatedly:
+    - shows a menu
+    - reads a user choice
+    - performs the requested action (list/details/mass/distance/moons/membership)
+    Handles common errors and keeps running until the user exits.
+    """
     try:
         catalogue = PlanetCatalogue.from_json("data/planets.json")
     except PlanetError as exc:
@@ -75,6 +110,7 @@ def main() -> None:
     while True:
         show_menu()
         raw_choice = prompt("Choose an option: ")
+        print()
         choice = normalise_menu_choice(raw_choice)
 
         if choice == "":
