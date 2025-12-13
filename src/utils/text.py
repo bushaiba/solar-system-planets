@@ -1,7 +1,7 @@
 import re
 
 
-def normalise_planet_name(name: str) -> str:
+def normalise_name(name: str) -> str:
     """
     Normalise a planet name for consistent formatting/matching.
     e.g. "saTUrN" -> "saturn"
