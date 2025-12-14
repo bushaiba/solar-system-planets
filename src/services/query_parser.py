@@ -163,14 +163,27 @@ class QueryEngine:
 
     def _extract_membership_candidate(self, cleaned: str) -> Optional[str]:
         """
-        Extract a likely planet name candidate from a membership question.
+        Extract a likely planet-name candidate from a membership-style question.
 
-        This uses a simple heuristic: take the last alphabetic word in the question.
-        Returns that word, or None if no suitable token is found.
+        Strategy:
+        1) Prefer the word immediately after "is" (e.g. "is pluto a planet" -> "pluto"),
+        ignoring common filler words like "the", "a", and "an".
+        2) If that fails, fall back to the last alphabetic word in the question.
+        Returns the candidate word, or None if no alphabetic token is found.
         """
         tokens = cleaned.split(" ")
-        last_word = None
 
+        # Prefer the word immediately after "is"
+        i = 0
+        while i < len(tokens) - 1:
+            if tokens[i] == "is":
+                candidate = tokens[i + 1]
+                if candidate.isalpha() and candidate not in ["the", "a", "an"]:
+                    return candidate
+            i += 1
+
+        # Fallback: last alphabetic token
+        last_word = None
         for token in tokens:
             if token.isalpha():
                 last_word = token
