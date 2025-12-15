@@ -36,3 +36,14 @@ Out of scope:
 | TC10 | Query | Misspelling suggestion | `How massive is saturnn` | suggests Saturn or answers via suggestion flow | Automated |
 | TC11 | Validation | Empty question | empty input in question mode | prompts user or returns message | Manual |
 | TC12 | Resilience | Unknown planet | `Tell me about Krypton` | helpful error + list or suggestions | Automated |
+
+## Automated coverage
+Automated with `python -m unittest -v`:
+- Planet model validation tests
+- Catalogue JSON loading and suggestions
+- Query engine intent and planet extraction tests
+
+## Manual checks
+Manual checks in the CLI:
+- Menu navigation and usability
+- Re-prompt behaviour on empty inputs
