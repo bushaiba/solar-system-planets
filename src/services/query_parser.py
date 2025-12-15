@@ -1,3 +1,5 @@
+# External references for patterns used in this project are listed in README.md and docs/REFERENCES.md
+
 import difflib
 from enum import Enum
 from typing import Optional
@@ -101,7 +103,7 @@ class QueryEngine:
         if has_moon and ("list" in cleaned or "what are" in cleaned or "which" in cleaned or "name" in cleaned):
             return Intent.MOON_LIST
 
-        if "mass" in cleaned or "massive" in cleaned or "weigh" in cleaned or "weight" in cleaned:
+        if "mass" in cleaned or "massive" in cleaned or "weigh" in cleaned or "weight" in cleaned or "big" in cleaned:
             return Intent.MASS
 
         if "distance" in cleaned or "far" in cleaned or "from the sun" in cleaned:

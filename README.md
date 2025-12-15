@@ -94,8 +94,6 @@ Choose option **7** and type a question.
 - This project does not use a relational database.
 - Inputs and dataset fields are validated to keep the program predictable.
 
-### -------------------------------------------------------------------------------------------------
-
 ## References (external)
 
 ### Python documentation
@@ -111,7 +109,7 @@ Choose option **7** and type a question.
 - https://docs.python.org/3/library/cmd.html
 - https://docs.python.org/3/library/typing.html
 
-### Stack Overflow (similar patterns and discussions)
+### Stack Overflow
 - https://stackoverflow.com/questions/58016434/inheritance-extending-a-from-json-function-in-super-but-it-makes-an-instance-of
 - https://stackoverflow.com/questions/62212855/how-to-create-objects-from-jsons-in-python-with-a-complex-constructor
 - https://stackoverflow.com/questions/71462500/best-way-to-use-a-json-to-create-class-objects-in-python
@@ -119,3 +117,10 @@ Choose option **7** and type a question.
 - https://stackoverflow.com/questions/40667782/techniques-other-than-regex-to-discover-intent-in-sentences
 - https://stackoverflow.com/questions/64874054/whats-a-good-way-to-match-text-to-sets-of-keywords-nlp
 - https://stackoverflow.com/questions/44897645/query-using-nlp-python
+
+### Python Enhancement Proposals (PEPs)
+- https://peps.python.org/pep-0008/
+- https://peps.python.org/pep-0257/ 
+- https://peps.python.org/pep-0484/
+
+- See `docs/REFERENCES.md` for the full list of external references (Python docs, Stack Overflow, and learning resources).

@@ -1,3 +1,5 @@
+# External references for patterns used in this project are listed in README.md and docs/REFERENCES.md
+
 from src.services.catalogue import PlanetCatalogue
 from src.services.formatter import (
     format_planet_details,
@@ -33,6 +35,21 @@ def prompt_non_empty(text: str) -> str:
             return value
         print("Please enter a value.")
 
+#--------------------------------------------------------------
+
+def print_result(text: str) -> None:
+    """
+    Print a result message with divider lines above and below for readability.
+
+    This calls print_divider() before and after the text, and adds a blank line after.
+    """
+    print("-" * 60)
+    print()
+    print(f"Answer:\n{text}")
+    print()
+    print("-" * 60)
+
+#--------------------------------------------------------------
 
 def normalise_menu_choice(raw: str) -> str:
     """
@@ -165,7 +182,7 @@ def main() -> None:
             elif choice == "7":
                 question = prompt_non_empty("Ask your question: ")
                 answer = engine.answer(question, catalogue)
-                print(answer)
+                print_result(answer)
 
             else:
                 print("Invalid option. Choose a number from the menu, or type a keyword like 'list'.")

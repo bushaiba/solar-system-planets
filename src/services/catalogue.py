@@ -1,3 +1,5 @@
+# External references for patterns used in this project are listed in README.md and docs/REFERENCES.md
+
 import json
 import difflib
 from pathlib import Path

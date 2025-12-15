@@ -1,3 +1,5 @@
+# External references for patterns used in this project are listed in README.md and docs/REFERENCES.md
+
 from src.models.planet import Planet
 
 
